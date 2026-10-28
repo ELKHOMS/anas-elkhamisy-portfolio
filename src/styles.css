@@ -1,0 +1,137 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-asphalt: var(--asphalt);
+  --color-marking: var(--marking);
+  --color-surface: var(--surface);
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.16 0.006 270);       /* midnight #101114 */
+  --foreground: oklch(0.96 0.008 85);        /* warm white */
+  --card: oklch(0.205 0.008 265);            /* charcoal */
+  --card-foreground: oklch(0.96 0.008 85);
+  --popover: oklch(0.205 0.008 265);
+  --popover-foreground: oklch(0.96 0.008 85);
+  --primary: oklch(0.69 0.2 41);             /* signal orange */
+  --primary-foreground: oklch(0.16 0.006 270);
+  --secondary: oklch(0.26 0.01 265);
+  --secondary-foreground: oklch(0.96 0.008 85);
+  --muted: oklch(0.26 0.01 265);
+  --muted-foreground: oklch(0.67 0.01 270);  /* muted gray */
+  --accent: oklch(0.26 0.01 265);
+  --accent-foreground: oklch(0.96 0.008 85);
+  --destructive: oklch(0.6 0.22 27);
+  --destructive-foreground: oklch(0.96 0.008 85);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.69 0.2 41);
+  --asphalt: oklch(0.24 0.008 265);
+  --marking: oklch(0.67 0.01 270 / 55%);
+  --surface: oklch(0.25 0.01 265);
+  --glow: radial-gradient(60% 50% at 50% 0%, color-mix(in oklab, var(--primary) 18%, transparent), transparent 70%);
+  --shadow-car: 0 6px 10px oklch(0 0 0 / 55%);
+  --shadow-lift: 0 30px 60px -30px oklch(0 0 0 / 80%);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--primary); color: var(--primary-foreground); }
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+@utility road-sign {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid color-mix(in oklab, var(--primary) 50%, transparent);
+  color: var(--primary);
+  border-radius: 3px;
+}
+
+@utility placeholder-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.45rem;
+  border: 1px dashed var(--muted-foreground);
+  color: var(--muted-foreground);
+  border-radius: 2px;
+}
+
+@utility hero-glow { background: var(--glow); }
+@utility shadow-lift { box-shadow: var(--shadow-lift); }
+
+@utility placeholder-art {
+  background:
+    repeating-linear-gradient(135deg, transparent 0 14px, oklch(1 0 0 / 3%) 14px 15px),
+    linear-gradient(160deg, var(--surface), var(--card));
+}
+
+@keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sweep { 0% { transform: translateX(-120%); } 100% { transform: translateX(220%); } }
+
+@utility animate-rise { animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+@utility animate-fade { animation: fade 1.4s ease both; }
+@utility animate-sweep { animation: sweep 2.6s ease-in-out 1.2s both; }
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.reveal.is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+}
