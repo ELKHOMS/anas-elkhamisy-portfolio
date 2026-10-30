@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ArrowUpRight, Award, Download, Github, GraduationCap, Linkedin, Mail, MapPin, User, Wrench, Car as CarIcon, Flag, X } from "lucide-react";
+import {
+  ArrowUpRight, Award, Download, Github, GraduationCap, Linkedin, Mail, MapPin, User, Wrench,
+  Car as CarIcon, Flag, X, Eraser, BarChart3, LineChart, LayoutDashboard, Database, Briefcase,
+  MessageCircle,
+} from "lucide-react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { profile, contact, skillGroups, projects, certificates, milestones, education, type Project, type Certificate, type Skill } from "@/content/portfolio";
 
@@ -7,6 +11,7 @@ export const STATIONS = [
   { id: "about", label: "About", name: "The Driver", Icon: User },
   { id: "skills", label: "Skills", name: "The Toolbox", Icon: Wrench },
   { id: "projects", label: "Projects", name: "The Garage", Icon: CarIcon },
+  { id: "services", label: "Services", name: "The Workshop", Icon: Briefcase },
   { id: "certifications", label: "Certifications", name: "The Checkpoints", Icon: Award },
   { id: "experience", label: "Experience", name: "Milestones", Icon: Flag },
   { id: "education", label: "Education", name: "The Foundation", Icon: GraduationCap },
@@ -48,6 +53,7 @@ function Title({ children, sub }: { children: ReactNode; sub?: string }) {
 
 const Ph = ({ show = true }: { show?: boolean }) => (show ? <span className="placeholder-tag">Placeholder</span> : null);
 
+/* ───────────────────────── 0 · About ───────────────────────── */
 export function About() {
   return (
     <Station id="about" n={0}>
@@ -88,6 +94,7 @@ export function About() {
   );
 }
 
+/* ───────────────────────── 1 · Skills ───────────────────────── */
 export function Skills() {
   const [sel, setSel] = useState<Skill>(skillGroups[0]!.skills[0]!);
   return (
@@ -126,6 +133,7 @@ export function Skills() {
   );
 }
 
+/* ───────────────────────── 2 · Projects ───────────────────────── */
 function Cover({ p, big }: { p: Project; big?: boolean }) {
   return p.cover ? (
     <img src={p.cover} alt={p.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
@@ -201,10 +209,101 @@ export function Projects() {
     </Station>
   );
 }
+
+/* ───────────────────────── 3 · Services ───────────────────────── */
+const services = [
+  {
+    title: "Data Cleaning",
+    icon: Eraser,
+    color: "from-rose-500 to-orange-400",
+    description: "Cleaning and preparing data for accurate analysis.",
+    deliverables: ["Missing values & duplicates", "Data formatting & correction", "Outlier detection"],
+    tools: ["Python", "Pandas", "Excel", "SQL"],
+    image: "/services/data-cleaning.svg",
+  },
+  {
+    title: "Data Analysis",
+    icon: LineChart,
+    color: "from-blue-500 to-cyan-400",
+    description: "Discovering trends and extracting valuable insights.",
+    deliverables: ["Exploratory Data Analysis (EDA)", "KPI & trend analysis", "Business insights"],
+    tools: ["Python", "SQL", "Excel"],
+    image: "/services/data-analysis.svg",
+  },
+  {
+    title: "Data Visualization",
+    icon: BarChart3,
+    color: "from-violet-500 to-fuchsia-400",
+    description: "Turning data into clear and meaningful visuals.",
+    deliverables: ["Charts & visual reports", "Data storytelling", "Professional visualizations"],
+    tools: ["Power BI", "Tableau", "Excel"],
+    image: "/services/data-visualization.svg",
+  },
+  {
+    title: "Interactive Dashboards",
+    icon: LayoutDashboard,
+    color: "from-emerald-500 to-teal-400",
+    description: "Building dashboards for smarter business decisions.",
+    deliverables: ["Interactive dashboards", "Filters & drill-downs", "KPI monitoring"],
+    tools: ["Power BI", "Tableau"],
+    image: "/services/dashboards.svg",
+  },
+  {
+    title: "SQL Querying & Reporting",
+    icon: Database,
+    color: "from-amber-500 to-yellow-400",
+    description: "Extracting and managing data using SQL.",
+    deliverables: ["SQL queries & JOINs", "Aggregations & CTEs", "Data reporting"],
+    tools: ["SQL Server", "SQL"],
+    image: "/services/sql-reporting.svg",
+  },
+];
+
+export function Services() {
+  return (
+    <Station id="services" n={3}>
+      <Title sub="How I can help turn your data into decisions.">Services I Offer</Title>
+      <div className="mt-14 grid gap-6 md:grid-cols-2">
+        {services.map((s, i) => {
+          const Icon = s.icon;
+          return (
+            <Reveal key={s.title} delay={i * 80}>
+              <article className="h-full overflow-hidden rounded-lg border bg-card transition-transform hover:-translate-y-1 hover:border-primary">
+                {s.image ? (
+                  <img src={s.image} alt={s.title} loading="lazy" className="h-44 w-full object-cover" />
+                ) : (
+                  <div className={`flex h-44 items-center justify-center bg-gradient-to-br ${s.color}`}>
+                    <Icon className="h-16 w-16 text-white drop-shadow" />
+                  </div>
+                )}
+                <div className="p-6">
+                  <h3 className="font-display text-3xl">{s.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{s.description}</p>
+                  <ul className="mt-4 space-y-1 text-sm">
+                    {s.deliverables.map((d) => (
+                      <li key={d} className="flex gap-2"><span className="text-primary">✓</span><span>{d}</span></li>
+                    ))}
+                  </ul>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {s.tools.map((t) => (
+                      <span key={t} className="rounded-full border px-3 py-1 text-xs">{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            </Reveal>
+          );
+        })}
+      </div>
+    </Station>
+  );
+}
+
+/* ───────────────────────── 4 · Certifications ───────────────────────── */
 export function Certifications() {
   const [open, setOpen] = useState<Certificate | null>(null);
   return (
-    <Station id="certifications" n={3}>
+    <Station id="certifications" n={4}>
       <Title sub="Courses, training and certifications — each one a checkpoint passed.">The Checkpoints</Title>
       <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {certificates.map((c, i) => (
@@ -250,9 +349,11 @@ export function Certifications() {
     </Station>
   );
 }
+
+/* ───────────────────────── 5 · Experience ───────────────────────── */
 export function Experience() {
   return (
-    <Station id="experience" n={4}>
+    <Station id="experience" n={5}>
       <Title sub="Meaningful steps along the way — projects, learning, and growth.">Milestones</Title>
       <ol className="mt-14 space-y-4">
         {milestones.map((m, i) => (
@@ -273,10 +374,11 @@ export function Experience() {
   );
 }
 
+/* ───────────────────────── 6 · Education ───────────────────────── */
 export function Education() {
   const e = education;
   return (
-    <Station id="education" n={5}>
+    <Station id="education" n={6}>
       <Title>The Foundation</Title>
       <Reveal delay={120}>
         <div className="mt-14 overflow-hidden rounded-lg border bg-card shadow-lift">
@@ -286,7 +388,7 @@ export function Education() {
           </div>
           <div className="grid gap-10 p-8 md:grid-cols-2 md:p-10">
             <div>
-              <div className="flex items-center gap-3"><span className="eyebrow">{e.degree}</span><Ph show={e.placeholder} /></div>
+              <div className="flex items-center gap-3"><span className="eyebrow">{e.degree}</span></div>
               <h3 className="mt-3 font-display text-4xl">{e.institution}</h3>
               <p className="mt-2 text-foreground/80">{e.field}</p>
               {(e.start || e.graduation) && <p className="mt-4 font-mono text-sm text-muted-foreground">{e.start} → {e.graduation || "Expected"}</p>}
@@ -302,23 +404,25 @@ export function Education() {
   );
 }
 
+/* ───────────────────────── 7 · Contact ───────────────────────── */
 export function Contact() {
   const items = [
-    { label: "Email", href: contact.email && `mailto:${contact.email}`, Icon: Mail },
-    { label: "LinkedIn", href: contact.linkedin, Icon: Linkedin },
-    { label: "GitHub", href: contact.github, Icon: Github },
-    { label: "Download CV", href: contact.cv, Icon: Download },
+    { label: "Email",       href: contact.email && `mailto:${contact.email}`,                          Icon: Mail },
+    { label: "LinkedIn",    href: contact.linkedin,                                                     Icon: Linkedin },
+    { label: "GitHub",      href: contact.github,                                                       Icon: Github },
+    { label: "Download CV", href: contact.cv,                                                           Icon: Download },
+    { label: "WhatsApp",    href: contact.phone && `https://wa.me/${contact.phone.replace("+", "")}`,   Icon: MessageCircle },
   ];
   return (
-    <Station id="contact" n={6}>
+    <Station id="contact" n={7}>
       <div className="relative">
         <div className="hero-glow pointer-events-none absolute -inset-x-20 -top-40 h-96" />
         <Title sub="Let's connect, exchange ideas, and build something meaningful.">Have an interesting challenge in mind?</Title>
         <Reveal delay={200}>
-          <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {items.map(({ label, href, Icon }) =>
               href ? (
-                <a key={label} href={href} target={href.startsWith("mailto") ? undefined : "_blank"} rel="noreferrer" download={label === "Download CV" || undefined}
+                <a key={label} href={href} target="_blank" rel="noreferrer" download={label === "Download CV" || undefined}
                   className="group flex items-center justify-between rounded-lg border bg-card p-5 transition-colors hover:border-primary">
                   <span className="flex items-center gap-3"><Icon className="h-5 w-5 text-primary" />{label}</span>
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

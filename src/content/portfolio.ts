@@ -4,6 +4,7 @@
 // Anything marked placeholder: true shows a "Placeholder" tag on the site.
 // ─────────────────────────────────────────────────────────────
 import facePhoto from "@/assets/face-photo.png";
+import { Phone } from "lucide-react";
 export const profile = {
 name: "Anas Mohamed Rafiq Elkhamisy",
 
@@ -47,14 +48,13 @@ interests: [
 "Software Development",
 ],
 };
-
 export const contact = {
-  email: "234anas234@gmail.com", // e.g. "you@example.com" — enables the email button
-  linkedin: "https://www.linkedin.com/in/anas-elkhamisy", // full URL
-  github: "https://github.com/ELKHOMS", // full URL
-  cv: "https://drive.google.com/file/d/1GMB41EojyZdtaxLPuiUfe4FdPhvoCKmJ/view?usp=drive_link", // URL to your CV PDF — enables the download button
+  email: "234anas234@gmail.com",
+  linkedin: "https://www.linkedin.com/in/anas-elkhamisy",
+  github: "https://github.com/ELKHOMS",
+  cv: "https://drive.google.com/file/d/1GMB41EojyZdtaxLPuiUfe4FdPhvoCKmJ/view?usp=drive_link",
+  phone: "+201063641615"
 };
-
 export type Skill = { name: string; description: string; projects: string[]; level?: string };
 export const skillGroups: { title: string; skills: Skill[] }[] = [
   {
@@ -189,3 +189,75 @@ description:
   coursework: ["Data Structures", "Databases", "Statistics", "Machine Learning"],
   projects: ["Cairo Metro Data Analysis", "Netflix Data Analysis", "Airline Data Analysis", "Bike Shop Sales Analysis"],
 };
+export type Service = {
+  title: string;
+  description: string;
+  deliverables: string[];
+  tools: string[];
+  image: string; // صورة بتوضح الخدمة
+};
+
+export const services: Service[] = [
+  {
+    title: "Data Cleaning",
+    description:
+      "أحوّل البيانات الخام الفوضوية إلى بيانات نظيفة وجاهزة للتحليل.",
+    deliverables: [
+      "Handling missing values & duplicates",
+      "Fixing data types & inconsistent formats",
+      "Outlier detection",
+      "Cleaned dataset + cleaning log",
+    ],
+    tools: ["Python", "Pandas", "Excel", "SQL"],
+    image: "/services/data-cleaning.png",
+  },
+  {
+    title: "Data Analysis",
+    description:
+      "أستكشف البيانات وأطلع منها الأنماط والتريندات والإجابات على أسئلة البزنس.",
+    deliverables: [
+      "Exploratory Data Analysis (EDA)",
+      "KPIs & trend analysis",
+      "Statistical summaries",
+      "Insights report",
+    ],
+    tools: ["Python", "SQL", "Excel"],
+    image: "/services/data-analysis.png",
+  },
+  {
+    title: "Data Visualization",
+    description:
+      "أعمل رسومات واضحة بتحكي قصة البيانات بشكل سهل الفهم.",
+    deliverables: [
+      "Charts & visual reports",
+      "Storytelling with data",
+      "Clean, readable design",
+    ],
+    tools: ["Power BI", "Tableau", "Excel"],
+    image: "/services/data-visualization.png",
+  },
+  {
+    title: "Interactive Dashboards",
+    description:
+      "أبني داشبورد تفاعلي يخلّي صاحب القرار يشوف الأرقام المهمة ويفلتر بنفسه.",
+    deliverables: [
+      "Interactive Power BI / Tableau dashboards",
+      "Filters, slicers & drill-down",
+      "Executive summary view",
+    ],
+    tools: ["Power BI", "Tableau"],
+    image: "/services/dashboards.png",
+  },
+  {
+    title: "SQL Querying & Reporting",
+    description:
+      "أكتب استعلامات SQL لاستخراج وتجميع البيانات من قواعد البيانات.",
+    deliverables: [
+      "Joins, aggregations & CTEs",
+      "Reusable queries",
+      "Reports ready for BI tools",
+    ],
+    tools: ["SQL Server", "SQL"],
+    image: "/services/sql-reporting.png",
+  },
+];

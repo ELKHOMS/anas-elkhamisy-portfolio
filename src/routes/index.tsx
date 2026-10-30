@@ -3,8 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { ArrowDown, ArrowUp, Menu, X } from "lucide-react";
 import hero from "@/assets/hero-road.jpg";
 import { Road } from "@/components/journey/Road";
-import { STATIONS, About, Skills, Projects, Certifications, Experience, Education, Contact } from "@/components/journey/Sections";
-import { profile } from "@/content/portfolio";
+import { STATIONS, About, Skills, Projects, Services, Certifications, Experience, Education, Contact } from "@/components/journey/Sections";import { profile } from "@/content/portfolio";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -115,6 +114,7 @@ function Index() {
           <Skills />
           <Projects />
           <Certifications />
+          <Services />
           <Experience />
           <Education />
           <Contact />
